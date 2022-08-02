@@ -7,7 +7,7 @@ type BuildItemProps = {
   quantity: number,
   price: number,
   onRemoveItem: (id: string) => void,
-  onUpdateQuantity: (id: string) => void,
+  onUpdateQuantity: (id: string, num: number) => void,
 };
 
 const BuildItem: React.FC<BuildItemProps> = (props) => {
@@ -28,9 +28,9 @@ const BuildItem: React.FC<BuildItemProps> = (props) => {
       <div className="col-2">{title}</div>
       <div className="col-3">
         {/* FIXME：這裡有 bug，怎麼修好他呢? */}
-        <button onClick={() => onUpdateQuantity(id, quantity - 1)}>-</button>
+        <button onClick={() => onUpdateQuantity(id, -1)}>-</button>
         <span className="px-1">{quantity}</span>
-        <button onClick={() => onUpdateQuantity(id, quantity + 1)}>+</button>
+        <button onClick={() => onUpdateQuantity(id, 1)}>+</button>
       </div>
 
       <div className="col-2">{price}</div>

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import ProductItem from './ProductItem';
 import { PRODUCTS } from './config';
 import Cart from './Cart';
-import Coupons from './Coupons';
+// import Coupons from './Coupons';
 import type { LineItem } from './types';
 
 const ShoppingCart = () => {
@@ -12,6 +12,7 @@ const ShoppingCart = () => {
    * @type {[LineItem[], Function]}
    */
   const [lineItems, setLineItems] = React.useState([]);
+  const [productItems, setProductItems] = React.useState(PRODUCTS);
 
   // TODO 6
   React.useEffect(() => {
@@ -22,7 +23,7 @@ const ShoppingCart = () => {
   }, [lineItems]);
 
   // TODO 5
-  const atUpdateQuantity = useCallback((id: string) => {
+  const atUpdateQuantity = useCallback((id: string, num: number) => {
     // 增加數量
     setLineItems((prev) => {
       return prev.map((item: LineItem) => {
@@ -31,7 +32,7 @@ const ShoppingCart = () => {
             id: item.id,
             title: item.title,
             price: item.price,
-            quantity: item.quantity + 1,
+            quantity: item.quantity + num,
           };
         }
         return item;
@@ -44,7 +45,7 @@ const ShoppingCart = () => {
     (id: string) => {
       const foundItem = lineItems.find((data) => data.id === id);
       if (foundItem) {
-        atUpdateQuantity(id);
+        atUpdateQuantity(id, 1);
       } else {
         // 新增
         const foundProduct = PRODUCTS.find((data) => data.id === id);
@@ -82,7 +83,7 @@ const ShoppingCart = () => {
     <div className="container">
       <div className="row">
         {/* TODO 4 */}
-        {PRODUCTS.map((product) => {
+        {productItems.map((product) => {
           return (
             <div className="col-3" key={product.id}>
               <ProductItem

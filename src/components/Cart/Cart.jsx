@@ -7,7 +7,7 @@ import type { LineItem } from '../types';
 type CartProps = {
   totalAmount: number,
   lineItems: LineItem[],
-  onUpdateQuantity: (id: string) => void,
+  onUpdateQuantity: (id: string, num: number) => void,
   onRemoveItem: (id: string) => void,
   onRemoveCart: () => void,
 };
