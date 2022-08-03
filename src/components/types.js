@@ -13,6 +13,7 @@ export type LineItem = {
   price: string,
   title: string,
   quantity: number,
+  isSoldOut: Boolean,
 };
 
 export type Coupon = {

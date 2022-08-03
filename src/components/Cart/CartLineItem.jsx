@@ -6,6 +6,7 @@ type BuildItemProps = {
   title: string,
   quantity: number,
   price: number,
+  isSoldOut: Boolean,
   onRemoveItem: (id: string) => void,
   onUpdateQuantity: (id: string, num: number) => void,
 };
@@ -17,6 +18,7 @@ const BuildItem: React.FC<BuildItemProps> = (props) => {
     quantity,
     price,
     id,
+    isSoldOut,
     onRemoveItem,
     onUpdateQuantity,
   } = props;
@@ -27,16 +29,22 @@ const BuildItem: React.FC<BuildItemProps> = (props) => {
     <section className="row" data-name="CartLineItem" data-gradient>
       <div className="col-2">{title}</div>
       <div className="col-3">
-        {/* FIXME：這裡有 bug，怎麼修好他呢? */}
-        <button onClick={() => onUpdateQuantity(id, -1)}>-</button>
+        <button onClick={() => onUpdateQuantity(id, -1)} disabled={quantity === 1}>
+          -
+        </button>
         <span className="px-1">{quantity}</span>
-        <button onClick={() => onUpdateQuantity(id, 1)}>+</button>
+        <button onClick={() => onUpdateQuantity(id, 1)} disabled={isSoldOut}>
+          +
+        </button>
       </div>
 
       <div className="col-2">{price}</div>
       <div className="col-3">{lineItemPrice}</div>
       <div className="col-2">
-        <button className="btn btn-danger w-100" onClick={() => onRemoveItem(id)}>
+        <button
+          className="btn btn-danger w-100"
+          onClick={() => onRemoveItem(id, quantity)}
+        >
           Remove
         </button>
       </div>

@@ -34,6 +34,7 @@ const Cart: React.FC<CartProps> = (props) => {
             quantity={data.quantity}
             onUpdateQuantity={onUpdateQuantity}
             onRemoveItem={onRemoveItem}
+            isSoldOut={data.isSoldOut}
           />
         );
       })}
