@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import ProductItem from './ProductItem';
 import { PRODUCTS } from './config';
 import Cart from './Cart';
-// import Coupons from './Coupons';
+import Coupons from './Coupons';
 import type { LineItem } from './types';
 
 const ShoppingCart = () => {
@@ -145,12 +145,15 @@ const ShoppingCart = () => {
     );
   });
 
-  // FIXME 請實作 coupon
-  /*
-  const atApplyCoupon = useCallback((coupon) => {
-    console.log('coupon', coupon);
-  }, []);
-  */
+  const atApplyCoupon = useCallback(
+    (discount: number) => {
+      const calcTotalAmount = lineItems.reduce((total, currentItem) => {
+        return total + currentItem.price * currentItem.quantity;
+      }, 0);
+      setTotalAmount(calcTotalAmount - discount);
+    },
+    [lineItems],
+  );
 
   return (
     <div className="container">
@@ -162,8 +165,7 @@ const ShoppingCart = () => {
         onUpdateQuantity={atUpdateQuantity}
         onRemoveItem={onRemoveItem}
       />
-      {/* FIXME 請實作 coupon 功能 */}
-      {/* <Coupons onApplyCoupon={atApplyCoupon} />} */}
+      <Coupons onApplyCoupon={atApplyCoupon} />
     </div>
   );
 };

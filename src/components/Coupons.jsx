@@ -2,8 +2,10 @@ import React from 'react';
 import { coupons } from './config';
 
 type CouponsProps = {
+  couponItems: CouponItem[],
   onApplyCoupon: (coupon: string) => void,
 };
+
 const Coupons: React.FC<CouponsProps> = (props) => {
   const { onApplyCoupon } = props;
   return (
@@ -14,7 +16,7 @@ const Coupons: React.FC<CouponsProps> = (props) => {
             key={coupon.id}
             className="btn btn-info"
             onClick={() => {
-              onApplyCoupon(coupon);
+              onApplyCoupon(coupon.discount);
             }}
           >
             {coupon.id}
